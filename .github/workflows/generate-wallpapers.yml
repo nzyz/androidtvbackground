@@ -1,0 +1,61 @@
+name: Generate wallpapers
+
+on:
+  workflow_dispatch:
+    inputs:
+      artists:
+        description: 'Artist names separated by semicolons (or leave blank to use the ARTIST_NAMES secret)'
+        required: false
+        type: string
+      resolution:
+        description: Wallpaper resolution
+        required: true
+        type: choice
+        options:
+          - 4K
+          - 1080p
+        default: 4K
+      include_movies_shows:
+        description: 'Include movies and shows (requires the TMDB_BEARER_TOKEN secret)'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-projectivy.txt
+      - name: Install image library
+        run: python -m pip install -r requirements-projectivy.txt
+      - name: Verify image fitting and imports
+        run: python -m unittest discover -s tests -v
+      - name: Generate uncropped wallpapers
+        run: python scripts/generate_wallpapers.py
+        env:
+          ARTIST_INPUT: ${{ inputs.artists }}
+          ARTIST_NAMES: ${{ secrets.ARTIST_NAMES }}
+          RESOLUTION: ${{ inputs.resolution }}
+          INCLUDE_MOVIES_SHOWS: ${{ inputs.include_movies_shows }}
+          TMDB_BEARER_TOKEN: ${{ secrets.TMDB_BEARER_TOKEN }}
+          AUDIODB_API_KEY: ${{ secrets.AUDIODB_API_KEY }}
+      - name: Downloadable wallpaper pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: Projectivy-wallpapers
+          path: |
+            wallpapers/*.jpg
+            wallpapers/manifest.json
+          if-no-files-found: error
+          retention-days: 7

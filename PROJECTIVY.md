@@ -10,6 +10,34 @@ photo is never cropped, stretched, darkened, or covered with a gradient.
 
 ## Quick start
 
+### From an Android phone: GitHub does the work
+
+1. Open your fork on GitHub and tap **Actions**. If asked, enable workflows
+   in the fork. Open **Generate wallpapers**, then **Run workflow**.
+2. Enter artist names separated by semicolons. Choose **4K** (or **1080p**)
+   and leave movies/shows off for the first test. Run the workflow on `main`.
+3. Wait for the run to finish, open it, and scroll to **Artifacts**. Download
+   **Projectivy-wallpapers** while signed into GitHub. Artifacts expire after 7 days;
+   run the workflow again if needed. On mobile, desktop-site mode may help show
+   the workflow controls or download link.
+4. Extract the ZIP in your phone's Files app. Send the JPGs to the TV using
+   your usual file-transfer app or USB, then select that folder in Projectivy.
+
+Run input is visible to people with access to Actions. To keep a longer artist
+list out of run inputs, store it as the **ARTIST_NAMES** repository Actions secret
+(Settings → Secrets and variables → Actions → New repository secret), then leave
+the artist field blank. Names may be separated by semicolons or newlines. The
+workflow does not commit your artist list or generated photos to the repository.
+Its downloadable manifest includes artist names and photo source URLs.
+
+Movies/shows need a **TMDB_BEARER_TOKEN** Actions secret before enabling that
+checkbox. An **AUDIODB_API_KEY** secret is optional; otherwise the shared free
+test key is used. A run can skip artists whose names or photos are unavailable;
+the manifest reports those failures. A run with no successful images fails
+instead of offering an empty wallpaper pack.
+
+### From a computer or server
+
 Requires Python 3.10+ on a computer or server. Android TV only displays the
 finished JPEGs; this is not an Android app or an Apple Music account connection.
 
