@@ -1,0 +1,22 @@
+{
+  "output": "wallpapers",
+  "cache": ".projectivy-cache",
+  "layout": {
+    "size": [3840, 2160],
+    "fill": "blur",
+    "blur": 48,
+    "background_brightness": 0.5
+  },
+  "music": {
+    "enabled": true,
+    "library": "private/artists.json",
+    "local_photos": "artist-photos",
+    "audiodb_key": "123",
+    "aliases": {
+      "mgk": "Machine Gun Kelly"
+    },
+    "photos": {}
+  },
+  "movies": {"enabled": true, "limit": 10, "language": "en-US"},
+  "shows": {"enabled": true, "limit": 10, "language": "en-US"}
+}

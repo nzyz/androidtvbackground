@@ -1,3 +1,12 @@
-﻿env
+.env
+env
 *_backgrounds/*
 *.tff
+private/
+projectivy.json
+.projectivy-cache/
+wallpapers/
+artist-photos/*
+!artist-photos/README.md
+__pycache__/
+*.pyc

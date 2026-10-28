@@ -1,5 +1,9 @@
 # Android TV Background
 
+**Personal Projectivy edition:** Artist photos from your Apple Music CSV plus
+movie and TV backdrops, fitted to 4K without cropping. See
+[PROJECTIVY.md](PROJECTIVY.md) for the new generator and setup.
+
 This is a simple script to retrieve Plex (your local server or friend's servers), Jellyfin, TMDB, Radarr/Sonarr or Trakt media background and use it as Android TV Wallpaper
 I developed this to use it with alternative Android TV launchers
 
